@@ -46,7 +46,7 @@ const useSound = (
     let isCancelled = false;
     let basePath = "";
     if (!validURL(url)) {
-      basePath = Sound.MAIN_BUNDLE;
+      basePath = encodeURIComponent(Sound.MAIN_BUNDLE);
     }
     const _sound = new Sound(url, basePath, () => {
       if (!isCancelled) {
@@ -68,7 +68,7 @@ const useSound = (
       setSound(null);
       let basePath = "";
       if (!validURL(url)) {
-        basePath = Sound.MAIN_BUNDLE;
+        basePath = encodeURIComponent(Sound.MAIN_BUNDLE);
       }
       const _sound = new Sound(url, basePath, () => {
         handleSetSound(_sound);
