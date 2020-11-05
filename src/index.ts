@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from "react";
+import { Platform } from "react-native";
 import Sound from "react-native-sound";
 import useInterval from "@use-it/interval";
 import { HookOptions, ReturnedValue, PlayFunction, PlayOptions } from "./types";
@@ -53,7 +54,11 @@ const useSound = (
     let isCancelled = false;
     let basePath = "";
     if (!validURL(url)) {
-      basePath = encodeURIComponent(Sound.MAIN_BUNDLE);
+      if(Platform.OS === 'ios'){
+          basePath = encodeURIComponent(Sound.MAIN_BUNDLE);
+        }else{
+          basePath = Sound.MAIN_BUNDLE;
+        }
     }
     const _sound = new Sound(url, basePath, () => {
       if (!isCancelled) {
@@ -75,7 +80,11 @@ const useSound = (
       setSound(null);
       let basePath = "";
       if (!validURL(url)) {
-        basePath = encodeURIComponent(Sound.MAIN_BUNDLE);
+        if(Platform.OS === 'ios'){
+          basePath = encodeURIComponent(Sound.MAIN_BUNDLE);
+        }else{
+          basePath = Sound.MAIN_BUNDLE;
+        }
       }
       const _sound = new Sound(url, basePath, () => {
         handleSetSound(_sound);
